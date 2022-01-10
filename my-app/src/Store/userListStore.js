@@ -34,7 +34,8 @@ import axios from "axios";
         
           }
              this.users.push(newUser);
-    }
+    }          
+
     }
 
     addUser(){
@@ -49,6 +50,11 @@ import axios from "axios";
 
         this.users.push(newUser);
 
+
+    }
+
+    getUsers(){
+        return (toJS(this.users));
 
     }
 

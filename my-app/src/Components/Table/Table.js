@@ -3,10 +3,9 @@ import { Table, Input, InputNumber, Popconfirm, Form, Typography,Button } from '
 import 'antd/dist/antd.css';
 import  UserStore  from "../../Store/userListStore";
 import {toJS} from "mobx";
+import { observer } from 'mobx-react';
 
 
-UserStore.getUsersFromApi();
-const originData= toJS(UserStore.users);
 
 const EditableCell = ({
   editing,
@@ -43,19 +42,24 @@ const EditableCell = ({
   );
 };
 
-const EditableTable = () => {
-
+const EditableTable =  observer(({userStore}) => {
+const users=userStore.users;
+console.log(users);
 
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState([]);
   const [editingKey, setEditingKey] = useState('');
   const [key, setKey]=useState(0);
 
   const isEditing = (record) => record.key === editingKey;
 
   useEffect(() => {
-      setData(UserStore.users);
-  },[]);
+      userStore.getUsersFromApi();
+      const naor=userStore.getUsers();
+       setData(users);
+      console.log(naor);
+
+  },[data]);
 
   const edit = (record) => {
     form.setFieldsValue({
@@ -94,7 +98,7 @@ const EditableTable = () => {
     UserStore.users = [...UserStore.users, newUser];
 
     
-    setData(toJS(UserStore.users));
+    //setData(toJS(UserStore.users));
 
    // UserStore.addUser();
 
@@ -221,6 +225,6 @@ const EditableTable = () => {
       />
     </Form>
   );
-};
+});
 
 export default EditableTable;
