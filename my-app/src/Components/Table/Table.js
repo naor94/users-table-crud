@@ -43,8 +43,7 @@ const EditableCell = ({
 };
 
 const EditableTable =  observer(({userStore}) => {
-const users=userStore.users;
-console.log(users);
+
 
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
@@ -55,11 +54,11 @@ console.log(users);
 
   useEffect(() => {
       userStore.getUsersFromApi();
-      const naor=userStore.getUsers();
+      const users=userStore.getUsers();
        setData(users);
-      console.log(naor);
+      console.log(users);
 
-  },[data]);
+  },[]);
 
   const edit = (record) => {
     form.setFieldsValue({
