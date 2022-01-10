@@ -8,7 +8,6 @@ import {toJS} from "mobx";
 UserStore.getUsersFromApi();
 const originData= toJS(UserStore.users);
 
-
 const EditableCell = ({
   editing,
   dataIndex,
@@ -69,6 +68,12 @@ const EditableTable = () => {
   };
 
   const deleteUser= (record)=>{
+
+    const dataSource = [...data];
+    const filteredData= dataSource.filter((item) => item.key !== record.key);
+    setData(filteredData);
+      
+  
 
   }
 
